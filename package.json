@@ -32,6 +32,10 @@
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akeemmckenzie/python-package-manager.git"
+  },
   "devDependencies": {
     "@types/vscode": "^1.90.0",
     "@types/mocha": "^10.0.6",
