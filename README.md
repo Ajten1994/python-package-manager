@@ -4,18 +4,18 @@ This extension helps you identify and remove unused Python packages in your proj
 
 ## Features
 
-- **Identify Unused Packages**: Scan your project to find Python packages listed in your `requirements.txt` file that are not used in your codebase.
+- **Identify Unused Packages**: Scan your project to find Python packages that are not used in your codebase.
 - **Remove Unused Packages**: Easily remove unused Python packages directly from VS Code.
 
 ### Identify Unused Packages
 
-Use the command `Identify Unused Python Packages` to scan your project and list unused packages.
+Use the command `Python Package Manager: Identify Unused Python Packages` to scan your project and list unused packages.
 
 ![Identify Unused Packages]
 
 ### Remove Unused Packages
 
-Use the command `Remove Unused Python Packages` to uninstall unused packages directly from your virtual environment.
+Use the command `Python Package Manager: Remove Unused Python Packages` to uninstall unused packages directly from your virtual environment.
 
 ![Remove Unused Packages]
 

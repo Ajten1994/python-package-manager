@@ -1,6 +1,6 @@
 {
-  "name": "python-package-manager",
-  "displayName": "Python Package Manager",
+  "name": "python-package-manager-pro",
+  "displayName": "Python Package Manager VSCode",
   "description": "Manage and identify unused python packages",
   "version": "1.0.0",
   "engines": {
@@ -11,6 +11,7 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "icon": "images/logo.png",
   "contributes": {
     "commands": [
       {
@@ -36,6 +37,7 @@
     "url": "https://github.com/akeemmckenzie/python-package-manager.git"
   },
   "author": "Akeem McKenzie",
+  "publisher": "AkeemMcKenzie",
   "license": "Proprietary",
   "devDependencies": {
     "@types/vscode": "^1.90.0",
