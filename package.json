@@ -36,6 +36,8 @@
     "type": "git",
     "url": "https://github.com/akeemmckenzie/python-package-manager.git"
   },
+  "author": "Akeem McKenzie",
+  "license": "Proprietary",
   "devDependencies": {
     "@types/vscode": "^1.90.0",
     "@types/mocha": "^10.0.6",
