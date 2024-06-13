@@ -36,6 +36,15 @@
     "type": "git",
     "url": "https://github.com/akeemmckenzie/python-package-manager.git"
   },
+  "files": [
+    "src",
+    "out",
+    "images",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "author": "Akeem McKenzie",
   "publisher": "AkeemMcKenzie",
   "license": "Proprietary",

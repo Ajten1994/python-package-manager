@@ -26,7 +26,7 @@ function identifyUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
+    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'src', 'check_packages.py');
     const outputFilePath = path.join(workspaceRoot, 'unusedpackages.txt');
 
     const venvPython = getVirtualEnvPython(workspaceRoot);
@@ -87,7 +87,7 @@ function removeUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
+    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'src', 'check_packages.py');
 
     const venvPython = getVirtualEnvPython(workspaceRoot);
     if (!venvPython) {
