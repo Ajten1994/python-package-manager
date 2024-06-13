@@ -1,6 +1,6 @@
 # Python Package Manager README
 
-This is the README for your extension "Python Package Manager". This extension helps you identify and remove unused Python packages in your projects.
+This extension helps you identify and remove unused Python packages in your projects.
 
 ## Features
 
