@@ -37,9 +37,9 @@
     "url": "https://github.com/akeemmckenzie/python-package-manager.git"
   },
   "files": [
-    "src",
-    "out",
-    "images",
+    "src/**/*",
+    "out/**/*",
+    "images/**/*",
     "CHANGELOG.md",
     "LICENSE",
     "package.json",
