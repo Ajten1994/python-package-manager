@@ -26,7 +26,7 @@ function identifyUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'out', 'check_packages.py');
+    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
     const outputFilePath = path.join(workspaceRoot, 'unusedpackages.txt');
 
     const venvPython = getVirtualEnvPython(workspaceRoot);
@@ -41,7 +41,7 @@ function identifyUnusedPackages() {
         cancellable: false
     }, (progress) => {
         return new Promise<void>((resolve, reject) => {
-            execFile(venvPython, [pythonScriptPath, workspaceRoot], (error, stdout, stderr) => {
+            execFile(venvPython, [pythonScriptPath, 'identify', workspaceRoot], (error, stdout, stderr) => {
                 if (error) {
                     vscode.window.showErrorMessage(`Error executing Python script: ${error.message}`);
                     reject();
@@ -63,7 +63,6 @@ function identifyUnusedPackages() {
                             return;
                         }
                         vscode.window.showInformationMessage(`Unused packages found and written to unusedpackages.txt`);
-                        // Open the file in VSCode
                         vscode.workspace.openTextDocument(outputFilePath).then(doc => {
                             vscode.window.showTextDocument(doc);
                         });
@@ -87,7 +86,7 @@ function removeUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'out', 'check_packages.py');
+    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
 
     const venvPython = getVirtualEnvPython(workspaceRoot);
     if (!venvPython) {
@@ -101,7 +100,7 @@ function removeUnusedPackages() {
         cancellable: false
     }, (progress) => {
         return new Promise<void>((resolve, reject) => {
-            execFile(venvPython, [pythonScriptPath, workspaceRoot], (error, stdout, stderr) => {
+            execFile(venvPython, [pythonScriptPath, 'remove', workspaceRoot], (error, stdout, stderr) => {
                 if (error) {
                     vscode.window.showErrorMessage(`Error executing Python script: ${error.message}`);
                     reject();
@@ -112,7 +111,7 @@ function removeUnusedPackages() {
                     console.warn(`Python script warning: ${stderr}`);
                 }
 
-                let unusedPackages = stdout.trim().split('\n').filter(pkg => pkg.startsWith('Unused package: ')).map(pkg => pkg.replace('Unused package: ', ''));
+                let unusedPackages = stdout.trim().split('\n').filter(pkg => pkg.startsWith('Removing package: ')).map(pkg => pkg.replace('Removing package: ', ''));
 
                 if (unusedPackages.length > 0) {
                     const terminal = vscode.window.createTerminal('Python Package Manager');
@@ -132,12 +131,54 @@ function removeUnusedPackages() {
     });
 }
 
+function generateRequirementsFile() {
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (!workspaceFolders) {
+        vscode.window.showErrorMessage('No workspace folder open');
+        return;
+    }
+
+    const workspaceRoot = workspaceFolders[0].uri.fsPath;
+    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
+
+    const venvPython = getVirtualEnvPython(workspaceRoot);
+    if (!venvPython) {
+        vscode.window.showErrorMessage('No virtual environment found in the workspace.');
+        return;
+    }
+
+    vscode.window.withProgress({
+        location: vscode.ProgressLocation.Notification,
+        title: "Generating requirements.txt...",
+        cancellable: false
+    }, (progress) => {
+        return new Promise<void>((resolve, reject) => {
+            execFile(venvPython, [pythonScriptPath, 'generate', workspaceRoot], (error, stdout, stderr) => {
+                if (error) {
+                    vscode.window.showErrorMessage(`Error executing Python script: ${error.message}`);
+                    reject();
+                    return;
+                }
+
+                if (stderr) {
+                    console.warn(`Python script warning: ${stderr}`);
+                }
+
+                vscode.window.showInformationMessage(`requirements.txt generated successfully.`);
+                resolve();
+            });
+        });
+    });
+}
+
 export function activate(context: vscode.ExtensionContext) {
     let identifyDisposable = vscode.commands.registerCommand('extension.identifyUnusedPackages', identifyUnusedPackages);
     let removeDisposable = vscode.commands.registerCommand('extension.removeUnusedPackages', removeUnusedPackages);
+    let generateDisposable = vscode.commands.registerCommand('extension.generateRequirementsFile', generateRequirementsFile);
 
     context.subscriptions.push(identifyDisposable);
     context.subscriptions.push(removeDisposable);
+    context.subscriptions.push(generateDisposable);
 }
 
 export function deactivate() {}
