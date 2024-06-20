@@ -26,7 +26,7 @@ function identifyUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
+    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'out', 'check_packages.py');
     const outputFilePath = path.join(workspaceRoot, 'unusedpackages.txt');
 
     const venvPython = getVirtualEnvPython(workspaceRoot);
@@ -86,8 +86,7 @@ function removeUnusedPackages() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
-
+    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'out', 'check_packages.py');
     const venvPython = getVirtualEnvPython(workspaceRoot);
     if (!venvPython) {
         vscode.window.showErrorMessage('No virtual environment found in the workspace.');
@@ -115,6 +114,7 @@ function removeUnusedPackages() {
 
                 if (unusedPackages.length > 0) {
                     const terminal = vscode.window.createTerminal('Python Package Manager');
+                    terminal.sendText("activate", true)
                     unusedPackages.forEach(pkg => {
                         const uninstallCommand = `${venvPython} -m pip uninstall -y ${pkg}`;
                         terminal.sendText(uninstallCommand, true);
@@ -139,8 +139,7 @@ function generateRequirementsFile() {
     }
 
     const workspaceRoot = workspaceFolders[0].uri.fsPath;
-    const pythonScriptPath = path.join(__dirname, '..', 'src', 'check_packages.py');
-
+    const pythonScriptPath = path.join(vscode.extensions.getExtension('akeemmckenzie.python-package-manager-pro')!.extensionPath, 'out', 'check_packages.py');
     const venvPython = getVirtualEnvPython(workspaceRoot);
     if (!venvPython) {
         vscode.window.showErrorMessage('No virtual environment found in the workspace.');

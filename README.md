@@ -6,6 +6,8 @@ This extension helps you identify and remove unused Python packages in your proj
 
 - **Identify Unused Packages**: Scan your project to find Python packages that are not used in your codebase.
 - **Remove Unused Packages**: Easily remove unused Python packages directly from VS Code.
+- **Generate Requirements File**: Create a `requirements.txt` file with all currently installed packages.
+
 
 ### Identify Unused Packages
 
@@ -18,6 +20,12 @@ Use the command `Python Package Manager: Identify Unused Python Packages` to sca
 Use the command `Python Package Manager: Remove Unused Python Packages` to uninstall unused packages directly from your virtual environment.
 
 ![Remove Unused Packages]
+
+### Generate Requirements File
+
+Use the command `Python Package Manager: Generate requirements.txt` to create a `requirements.txt` file with all currently installed packages.
+
+![Generate Requirements File]
 
 ## Requirements
 
@@ -41,4 +49,9 @@ This extension does not contribute any settings.
 - Initial release of Python Package Manager.
 - Added feature to identify unused Python packages.
 - Added feature to remove unused Python packages.
+
+### 1.0.1 
+- Added feature to generate a `requirements.txt` file with installed packages.
+- Fix bug fixes relating to checking depency packages for installed packages
+- Enhanced functionality to remove packages from requirements.txt if they are no longer present.
 

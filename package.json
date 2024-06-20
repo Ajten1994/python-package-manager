@@ -2,7 +2,7 @@
   "name": "python-package-manager-pro",
   "displayName": "Python Package Manager VSCode",
   "description": "Manage and identify unused python packages",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -21,13 +21,18 @@
       {
         "command": "extension.removeUnusedPackages",
         "title": "Python package manager: Remove Unused Python Packages"
+      },
+      {
+        "command": "extension.generateRequirementsFile",
+        "title": "Python Package Manager: Generate requirements.txt"
       }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./ && npm run copy-python",
-    "copy-python": "cpx src/check_packages.py out/"
+    "copy-python": "cpx src/check_packages.py out/",
+    "watch": "tsc -watch -p ./"
   },
   "repository": {
     "type": "git",
